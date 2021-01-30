@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
 import { ProfessionalGreetingService } from './services/professional-greeting.service';
 import { PersonalGreetingService } from './services/personal-greeting.service';
 import { GREETING_SERVICE } from './services/greeting-service.interface';
@@ -16,4 +16,11 @@ import { GreetingController } from './controllers/greeting.controller';
     GreetingController
   ]
 })
-export class GreetingModule {}
+export class GreetingModule {
+  public static registerProviders(providers): DynamicModule {
+    return {
+      module: GreetingModule,
+      providers: providers
+    }
+  }
+}
