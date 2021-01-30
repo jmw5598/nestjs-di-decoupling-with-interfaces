@@ -2,17 +2,11 @@ import { Module } from '@nestjs/common';
 import { ChatController } from './controllers/chat.controller';
 
 import { GreetingModule } from '../greeting/greeting.module';
-import { IGreetingService, GREETING_SERVICE } from '../greeting/services/greeting-service.interface';
-import { PersonalGreetingService } from '../greeting/services/personal-greeting.service';
-
-const greetingService = {
-  useClass: PersonalGreetingService,
-  provide: GREETING_SERVICE
-}
+import { greetingServiceProvider } from '../app.providers';
 
 @Module({
-  imports: [GreetingModule.registerProviders([greetingService])],
+  imports: [GreetingModule.registerProviders([greetingServiceProvider])],
   controllers: [ChatController],
-  providers: [greetingService]
+  providers: [greetingServiceProvider]
 })
 export class ChatModule {}
